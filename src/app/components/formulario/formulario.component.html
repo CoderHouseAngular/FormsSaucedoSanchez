@@ -1,0 +1,50 @@
+<h1>Registro de Usuarios</h1>
+<div class="row">
+
+    <div class="form col-sm-4">
+        <h2>Agregar Usuario</h2>
+        <form [formGroup]="userData" (ngSubmit)="addUser()">
+    
+            <div class="mb-3">
+                <label for="nombre" class="form-label">Nombre</label>
+                <input type="text" class="form-control" id="nombre" formControlName="nombre">
+                
+            </div>
+            <div class="mb-3">
+                <label for="nombre" class="form-label">Apellidos</label>
+                <input type="text" class="form-control" id="apellidos" formControlName="apellidos">
+            </div>
+            <div class="mb-3">
+                <label for="nombre" class="form-label">Email</label>
+                <input type="email" class="form-control" id="email" formControlName="email">
+                <div class="error" *ngIf="userData.get('email')?.errors?.['email']">
+                    <small>Correo incorrecto</small>
+                </div>        
+            </div>
+            <div class="mb-3">
+                <label for="nombre" class="form-label">Genero</label>
+                <select  class="form-control" id="genero" formControlName="genero">
+                    <option value="masculino">Masculino</option>
+                    <option value="femenino">Femenino</option>
+                </select>
+            </div>
+        
+            <button type="submit" class="btn btn-info" [disabled]="userData.invalid" >Agregar</button>
+        </form>
+    </div>
+    <div class="list col-sm-8">
+    <h2>Lista de Usuarios</h2>
+        <div *ngFor="let user of users" class="card">
+            <div *ngIf="user.Genero=='masculino'; then thenBlock else elseBlock"></div>
+            <ng-template #thenBlock><img src="https://cdn2.iconfinder.com/data/icons/avatars-2-7/128/20-512.png"/></ng-template>
+            <ng-template #elseBlock><img src="https://cdn2.iconfinder.com/data/icons/avatars-2-7/128/27-512.png"/> </ng-template>
+            <div class="card-body">
+              <h5 class="card-title">{{user.Nombre+' '+user.Apellidos}}</h5>
+              <p class="card-text">{{user.Email}}</p>              
+            </div>
+          </div>
+    
+    </div>
+</div>
+
+
